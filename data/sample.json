@@ -1,0 +1,9 @@
+{
+  "event_id": "sample-014",
+  "event_type": "CONFIGURATION_ASSEMBLED",
+  "aggregate_type": "device_configuration",
+  "aggregate_id": "aggregate-014",
+  "occurred_at": "2026-09-20T12:00:00+08:00",
+  "version": 1,
+  "summary": "脑机示范设备放行领域样例"
+}
