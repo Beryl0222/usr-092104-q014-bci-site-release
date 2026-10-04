@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "脑机示范设备放行领域事件",
+  "description": "所有领域对象以追加事件版本化：产品构成、校准、模型、适用人群、验证证据、场地条件、人员能力、训练方案、会话、安全事件。事件只增不改，消费方按 aggregate_id+version 折叠。",
   "type": "object",
   "required": [
     "event_id",
@@ -14,25 +15,60 @@
   "properties": {
     "event_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "全局唯一，建议 ULID/UUID"
     },
     "event_type": {
       "type": "string",
       "enum": [
         "CONFIGURATION_ASSEMBLED",
+        "CONFIGURATION_DISCONTINUED",
+        "FIRMWARE_RELEASED",
+        "CALIBRATION_RECORDED",
+        "MODEL_RELEASED",
+        "MODEL_RETIRED",
+        "POPULATION_SCOPE_DEFINED",
         "EVIDENCE_ACCEPTED",
+        "EVIDENCE_REVOKED",
+        "SITE_REGISTERED",
+        "SITE_CONDITION_ASSESSED",
+        "PERSONNEL_CERTIFIED",
+        "CREDENTIAL_REVOKED",
+        "PROTOCOL_APPROVED",
+        "PROTOCOL_WITHDRAWN",
         "SITE_RELEASED",
+        "RELEASE_SUSPENDED",
+        "BATCH_QUARANTINED",
+        "BATCH_RELEASED_FROM_QUARANTINE",
+        "SESSION_CLEARED",
         "SESSION_STARTED",
-        "SAFETY_STOPPED"
+        "SESSION_ENDED",
+        "SAFETY_STOPPED",
+        "OPERATION_RESUMED",
+        "DEVICE_ACK_RECORDED",
+        "COMMAND_QUEUED",
+        "COMMAND_EXPIRED",
+        "PATIENT_SIGNAL_POLICY_GRANTED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "device_configuration",
+        "hardware_batch",
+        "calibration",
+        "decoder_model",
+        "population_scope",
         "release_evidence",
+        "demonstration_site",
+        "site_condition",
         "operator_credential",
-        "therapy_session"
+        "therapy_protocol",
+        "site_release",
+        "therapy_session",
+        "safety_event",
+        "device_command",
+        "signal_access_policy"
       ]
     },
     "aggregate_id": {
@@ -45,12 +81,45 @@
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "description": "同一 aggregate_id 内从 1 起严格递增"
     },
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "site_id": {
+      "type": "string",
+      "description": "五家示范中心之一；跨站事件用于溯源，不代表可在该站执行"
+    },
+    "payload": {
+      "type": "object",
+      "description": "事件明细，事件类型与字段的对应关系见 README 事件目录"
     }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "$defs": {
+    "activation_mode": {
+      "description": "启用模式：科研验证 / 试用许可 / 常规康复启用，三者不可互相顶替",
+      "enum": [
+        "RESEARCH_VALIDATION",
+        "INVESTIGATIONAL_AUTHORIZATION",
+        "ROUTINE_REHABILITATION"
+      ]
+    },
+    "clearance_decision": {
+      "enum": [
+        "ALLOWED",
+        "DENIED"
+      ]
+    },
+    "command_status": {
+      "enum": [
+        "QUEUED",
+        "DELIVERED",
+        "ACKED",
+        "EXPIRED"
+      ]
+    }
+  }
 }

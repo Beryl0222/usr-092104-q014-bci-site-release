@@ -5,5 +5,15 @@
   "aggregate_id": "aggregate-014",
   "occurred_at": "2026-09-20T12:00:00+08:00",
   "version": 1,
-  "summary": "脑机示范设备放行领域样例"
+  "summary": "组装产品构成：硬件批次、采集固件、解码模型、外骨骼控制器全部钉版",
+  "payload": {
+    "intended_use": "CONTROL_ONLY",
+    "components": {
+      "hardware_batch_id": "hw-batch-2026-07",
+      "acquisition_firmware": { "firmware_id": "fw-acq", "version": "3.1.0" },
+      "decoder_model": { "id": "decoder-m1", "version": "7.2.0" },
+      "exoskeleton_controller": { "id": "fw-exo-ctrl", "firmware_version": "2.4.1" }
+    },
+    "supersedes": []
+  }
 }
