@@ -20,19 +20,46 @@
       "type": "string",
       "enum": [
         "CONFIGURATION_ASSEMBLED",
-        "EVIDENCE_ACCEPTED",
+        "CONFIGURATION_WITHDRAWN",
+        "CALIBRATION_RECORDED",
+        "MODEL_PUBLISHED",
+        "POPULATION_DEFINED",
+        "SITE_CONDITION_VERIFIED",
         "SITE_RELEASED",
+        "CREDENTIAL_ISSUED",
+        "CREDENTIAL_SUSPENDED",
+        "PROTOCOL_APPROVED",
+        "EVIDENCE_ACCEPTED",
+        "RELEASE_GRANTED",
+        "RELEASE_WITHDRAWN",
         "SESSION_STARTED",
-        "SAFETY_STOPPED"
+        "SESSION_DENIED",
+        "SESSION_COMPLETED",
+        "SAFETY_STOPPED",
+        "STOP_RECOVERY_APPROVED",
+        "BATCH_QUARANTINED",
+        "QUARANTINE_LIFTED",
+        "INSTRUCTION_ISSUED",
+        "INSTRUCTION_APPLIED",
+        "INSTRUCTION_REJECTED_EXPIRED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "device_configuration",
-        "release_evidence",
+        "calibration_record",
+        "decoder_model",
+        "population_criteria",
+        "site_condition",
         "operator_credential",
-        "therapy_session"
+        "therapy_protocol",
+        "release_evidence",
+        "release_grant",
+        "therapy_session",
+        "safety_event",
+        "quarantine",
+        "instruction"
       ]
     },
     "aggregate_id": {
@@ -50,6 +77,10 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "payload": {
+      "type": "object",
+      "description": "领域数据载体；信封字段保持稳定，领域数据一律放在 payload 内"
     }
   },
   "additionalProperties": true
